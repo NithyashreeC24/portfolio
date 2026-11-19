@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nithyashree C — Portfolio 2026</title>
+  <meta name="description" content="Swiss-editorial architectural portfolio of Nithyashree C — Computer Science & Engineering Undergraduate specializing in Generative AI, Full-Stack Engineering, and Sustainable Cloud." />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Space Grotesk, Inter, and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      --bg-paper: #F7F6F2;
+      --bg-surface: #EFECE6;
+      --ink-primary: #0E0E0E;
+      --ink-secondary: #5A5A56;
+      --hairline: rgba(14, 14, 14, 0.12);
+      --hairline-strong: rgba(14, 14, 14, 0.24);
+      --accent: #0F766E;
+      --accent-bright: #10B981;
+    }
+
+    html.dark {
+      --bg-paper: #0C0C0B;
+      --bg-surface: #151513;
+      --ink-primary: #F2F1EC;
+      --ink-secondary: #9A9992;
+      --hairline: rgba(242, 241, 236, 0.12);
+      --hairline-strong: rgba(242, 241, 236, 0.24);
+      --accent: #10B981;
+      --accent-bright: #34D399;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      color: var(--ink-primary);
+      transition: background-color 0.35s ease, color 0.35s ease;
+      overflow-x: hidden;
+    }
+
+    .bg-paper { background-color: var(--bg-paper); }
+    .bg-surface { background-color: var(--bg-surface); }
+    .text-ink { color: var(--ink-primary); }
+    .text-muted { color: var(--ink-secondary); }
+    .border-hairline { border-color: var(--hairline); }
+    .border-hairline-strong { border-color: var(--hairline-strong); }
+    .text-accent { color: var(--accent); }
+    .bg-accent { background-color: var(--accent); }
+
+    /* Architectural Background Vertical Grid Lines */
+    .arch-grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-left: 0;
+    }
+    @media (min-width: 1024px) {
+      .arch-grid-overlay {
+        margin-left: 13.5rem;
+      }
+    }
+    .arch-grid-col {
+      border-right: 1px solid var(--hairline);
+      height: 100%;
+    }
+    .arch-grid-col:first-child {
+      border-left: 1px solid var(--hairline);
+    }
+
+    /* Kinetic Letter Stagger Reveal */
+    .kinetic-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(38px) rotate(1.5deg);
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease, color 0.25s ease;
+      will-change: transform, opacity;
+    }
+    .kinetic-char.revealed {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg);
+    }
+    .kinetic-char:hover {
+      transform: translateY(-4px);
+      color: var(--accent);
+    }
+
+    /* Single-Section View Switching & Entrance Animation */
+    .page-section {
+      display: none;
+    }
+    .page-section.active-page {
+      display: flex;
+      animation: pageEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes pageEnter {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Scroll Reveal for Blocks */
+    .reveal-block {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-block.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Desktop Architectural Cursor */
+    @media (pointer: fine) {
+      .cursor-dot, .cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        border-radius: 9999px;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-dot {
+        width: 5px;
+        height: 5px;
+        background-color: var(--accent);
+      }
+      .cursor-ring {
+        width: 28px;
+        height: 28px;
+        border: 1px solid var(--hairline-strong);
+        transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+      }
+      .cursor-ring.active {
+        width: 44px;
+        height: 44px;
+        border-color: var(--accent);
+      }
+    }
+
+    /* Case Study Smooth Accordion */
+    .case-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .case-body.open {
+      grid-template-rows: 1fr;
+    }
+    .case-inner {
+      overflow: hidden;
+    }
+
+    /* Range Slider Styling */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 2px;
+      background: var(--hairline-strong);
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      background: var(--accent);
+      cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-[#0F766E] selection:text-white">
+
+  <!-- Subtle Desktop Architectural Cursor -->
+  <div id="cursor-dot" class="cursor-dot hidden lg:block"></div>
+  <div id="cursor-ring" class="cursor-ring hidden lg:block"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Background Architectural Grid Lines -->
+  <div class="arch-grid-overlay" aria-hidden="true">
+    <div class="arch-grid-col"></div>
+    <div class="arch-grid-col"></div>
+    <div class="arch-grid-col"></div>
+    <div class="arch-grid-col"></div>
+  </div>
+
+  <!-- FIXED LEFT VERTICAL ARCHITECTURAL RAIL (DESKTOP) -->
+  <aside class="hidden lg:flex fixed top-0 left-0 bottom-0 w-[13.5rem] z-40 bg-paper border-r border-hairline flex-col justify-between px-6 py-8">
+    <!-- Top Monogram & Status -->
+    <div>
+      <a href="#01-index" data-page-target="01-index" class="nav-trigger group flex items-center justify-between pb-6 border-b border-hairline">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 border border-hairline-strong flex items-center justify-center font-display font-bold text-xs tracking-wider group-hover:border-[#0F766E] group-hover:text-accent transition-colors">
+            NC
+          </span>
+          <div>
+            <p class="font-display font-bold text-xs tracking-tight leading-none">NITHYASHREE C</p>
+            <p class="font-mono text-[10px] text-muted mt-1">BLR / IN</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Numbered Index Navigation -->
+      <nav aria-label="Primary Architectural Index" class="mt-7 space-y-1">
+        <a href="#01-index" data-page-target="01-index" data-nav="01-index" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">01</span>
+            <span class="font-medium tracking-tight">Index</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#02-statement" data-page-target="02-statement" data-nav="02-statement" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">02</span>
+            <span class="font-medium tracking-tight">Statement</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#03-experience" data-page-target="03-experience" data-nav="03-experience" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">03</span>
+            <span class="font-medium tracking-tight">Experience</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#04-education" data-page-target="04-education" data-nav="04-education" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">04</span>
+            <span class="font-medium tracking-tight">Education</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#05-projects" data-page-target="05-projects" data-nav="05-projects" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">05</span>
+            <span class="font-medium tracking-tight">Projects</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#06-stack" data-page-target="06-stack" data-nav="06-stack" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">06</span>
+            <span class="font-medium tracking-tight">Stack</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#07-playground" data-page-target="07-playground" data-nav="07-playground" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">07</span>
+            <span class="font-medium tracking-tight">Playground</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+
+        <a href="#08-contact" data-page-target="08-contact" data-nav="08-contact" class="rail-link nav-trigger group flex items-center justify-between py-1.5 text-xs transition-colors">
+          <span class="flex items-center gap-2.5">
+            <span class="font-mono text-[11px] text-muted group-hover:text-accent transition-colors">08</span>
+            <span class="font-medium tracking-tight">Contact</span>
+          </span>
+          <span class="rail-indicator w-1.5 h-1.5 rounded-full bg-accent opacity-0 transition-opacity"></span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Rail Controls: Theme Switcher + Section Step Progress -->
+    <div class="space-y-4 pt-5 border-t border-hairline">
+      <!-- Theme Toggle -->
+      <button id="theme-toggle-desktop" type="button" class="w-full flex items-center justify-between px-2.5 py-2 border border-hairline hover:border-hairline-strong text-[11px] font-mono transition-colors">
+        <span id="theme-label-desktop">PAPER / LIGHT</span>
+        <span class="w-2 h-2 rounded-full bg-accent"></span>
+      </button>
+
+      <!-- Section Step Progress Bar & Next Arrow -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-16 h-[2px] bg-surface overflow-hidden">
+            <div id="scroll-progress-bar" class="h-full bg-accent w-[12.5%] transition-all duration-300"></div>
+          </div>
+          <span id="scroll-percent" class="font-mono text-[10px] text-muted">01/08</span>
+        </div>
+        <button type="button" id="rail-next-btn" aria-label="Go to next section" class="font-mono text-xs text-muted hover:text-ink transition-colors">
+          &rarr;
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- TOP COMPACT BAR (MOBILE & TABLET) -->
+  <header class="lg:hidden sticky top-0 z-40 bg-paper/95 backdrop-blur-md border-b border-hairline">
+    <div class="flex items-center justify-between px-4 h-14">
+      <a href="#01-index" data-page-target="01-index" class="nav-trigger flex items-center gap-2.5">
+        <span class="w-7 h-7 border border-hairline-strong flex items-center justify-center font-display font-bold text-xs">
+          NC
+        </span>
+        <span class="font-display font-bold text-xs tracking-tight">NITHYASHREE C</span>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle-mobile" type="button" aria-label="Toggle color theme" class="px-2.5 py-1.5 border border-hairline font-mono text-[10px]">
+          MODE
+        </button>
+        <button id="mobile-drawer-btn" type="button" aria-label="Open section index" class="px-3 py-1.5 border border-hairline-strong font-mono text-[11px] flex items-center gap-1.5">
+          <span id="mobile-active-num" class="text-accent">01 / 08</span>
+          <span>INDEX</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Index Drawer -->
+    <div id="mobile-drawer" class="hidden border-t border-hairline bg-paper px-4 py-4">
+      <div class="grid grid-cols-2 gap-2 font-mono text-xs">
+        <a href="#01-index" data-page-target="01-index" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">01</span> Index</a>
+        <a href="#02-statement" data-page-target="02-statement" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">02</span> Statement</a>
+        <a href="#03-experience" data-page-target="03-experience" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">03</span> Experience</a>
+        <a href="#04-education" data-page-target="04-education" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">04</span> Education</a>
+        <a href="#05-projects" data-page-target="05-projects" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">05</span> Projects</a>
+        <a href="#06-stack" data-page-target="06-stack" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">06</span> Stack</a>
+        <a href="#07-playground" data-page-target="07-playground" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">07</span> Playground</a>
+        <a href="#08-contact" data-page-target="08-contact" class="mobile-idx-link nav-trigger p-2.5 border border-hairline flex items-center gap-2"><span class="text-accent">08</span> Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ARCHITECTURAL CANVAS (SINGLE-PAGE MULTI-VIEW ROUTER) -->
+  <main class="relative z-10 lg:pl-[13.5rem] min-h-screen flex flex-col">
+
+    <!-- ===================================================================== -->
+    <!-- 01 / INDEX (HERO SECTION)                                             -->
+    <!-- ===================================================================== -->
+    <section id="01-index" data-index="01" data-title="Index" class="page-section active-page min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <!-- Top Architectural Metadata Header -->
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-5">
+        <div class="flex items-center gap-3 font-mono text-xs">
+          <span class="text-accent font-semibold">01 / 08</span>
+          <span class="text-muted">&mdash;</span>
+          <span class="uppercase tracking-widest text-muted">Computer Science Undergraduate &mdash; Portfolio 2026</span>
+        </div>
+
+        <div class="inline-flex items-center gap-2 font-mono text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-muted">Open to Software &amp; AI Roles</span>
+        </div>
+      </div>
+
+      <!-- Centerpiece Kinetic Typography: Full Name + Initial on ONE Single Line -->
+      <div class="my-auto py-10 sm:py-14">
+        <div class="mb-4 font-mono text-xs uppercase tracking-widest text-muted">
+          [ B.E. CSE &bull; 9.30 CGPA &bull; BENGALURU ]
+        </div>
+
+        <h1 aria-label="Nithyashree C" class="font-display font-bold tracking-[-0.04em] leading-[1.02] text-[clamp(2.25rem,6.6vw,6.4rem)] whitespace-nowrap select-none overflow-x-auto">
+          <span id="kinetic-full-name" class="inline-block">Nithyashree C</span>
+        </h1>
+
+        <div class="mt-10 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          <p class="lg:col-span-7 text-lg sm:text-2xl font-normal leading-snug text-ink">
+            CS undergrad building intelligent systems across Generative AI, full-stack web, and sustainable cloud.
+          </p>
+
+          <!-- Slash-Prefixed Discipline List -->
+          <div class="lg:col-span-5 lg:border-l border-hairline lg:pl-8 space-y-2 font-mono text-xs sm:text-sm">
+            <p class="text-ink"><span class="text-accent mr-2">/</span>Generative AI &amp; LLMs</p>
+            <p class="text-ink"><span class="text-accent mr-2">/</span>Full-Stack Engineering</p>
+            <p class="text-ink"><span class="text-accent mr-2">/</span>Cloud &amp; Security</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Quick Metadata Strip & Next Page Banner -->
+      <div class="pt-6 border-t border-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted">
+          <span>Bengaluru, India</span>
+          <span>&bull;</span>
+          <span>JSSATE (CGPA 9.30/10)</span>
+          <span>&bull;</span>
+          <a href="https://github.com/NithyashreeC24" target="_blank" rel="noopener noreferrer" class="underline hover:text-ink transition-colors">GitHub</a>
+          <span>/</span>
+          <a href="https://www.linkedin.com/in/nithyashree-c" target="_blank" rel="noopener noreferrer" class="underline hover:text-ink transition-colors">LinkedIn</a>
+        </div>
+
+        <a href="#02-statement" data-page-target="02-statement" class="nav-trigger group inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink self-start sm:self-auto">
+          <span class="text-accent font-semibold">01 / 08</span>
+          <span>Next &rarr; Statement</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 02 / STATEMENT                                                        -->
+    <!-- ===================================================================== -->
+    <section id="02-statement" data-index="02" data-title="Statement" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex items-center justify-between border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">02 / 08 &mdash; STATEMENT</span>
+        <span class="text-muted uppercase tracking-widest">Engineering Philosophy</span>
+      </div>
+
+      <div class="my-auto py-10 space-y-12 reveal-block">
+        <blockquote class="font-display font-bold text-3xl sm:text-5xl lg:text-[3.4rem] leading-[1.08] tracking-tight max-w-4xl">
+          &ldquo;I build software that is <span class="text-accent">intelligent</span>, <span class="underline decoration-1 underline-offset-8">verifiable</span>, and resource-aware.&rdquo;
+        </blockquote>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4 font-mono text-xs text-muted uppercase tracking-wider">
+            // Narrative &amp; Focus
+          </div>
+          <p class="lg:col-span-8 text-base sm:text-xl text-muted leading-relaxed">
+            From carbon-aware cloud workload schedulers and LLM-powered React app generators to pixel-level image steganography. Currently pursuing B.E. in Computer Science at <span class="text-ink font-medium">JSS Academy of Technical Education (9.30 CGPA)</span>, turning core computer science fundamentals into working, measurable systems.
+          </p>
+        </div>
+
+        <!-- Architectural 3-Column Metric Strip -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 border-t border-b border-hairline divide-y sm:divide-y-0 sm:divide-x divide-[var(--hairline)]">
+          <div class="py-6 sm:pr-6">
+            <p class="font-display font-bold text-3xl sm:text-4xl text-ink">9.30 / 10</p>
+            <p class="font-mono text-xs text-muted uppercase tracking-wider mt-2">Academic CGPA (JSSATE)</p>
+          </div>
+          <div class="py-6 sm:px-6">
+            <p class="font-display font-bold text-3xl sm:text-4xl text-ink">3rd / 70+</p>
+            <p class="font-mono text-xs text-muted uppercase tracking-wider mt-2">InnovateX 2025 Ideathon Teams</p>
+          </div>
+          <div class="py-6 sm:pl-6">
+            <p class="font-display font-bold text-3xl sm:text-4xl text-ink">03 Core</p>
+            <p class="font-mono text-xs text-muted uppercase tracking-wider mt-2">End-to-End Systems Built</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between gap-4 font-mono text-xs">
+        <a href="#01-index" data-page-target="01-index" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Index
+        </a>
+        <a href="#03-experience" data-page-target="03-experience" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">02 / 08</span>
+          <span>Next &rarr; Experience</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 03 / EXPERIENCE                                                       -->
+    <!-- ===================================================================== -->
+    <section id="03-experience" data-index="03" data-title="Experience" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex items-center justify-between border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">03 / 08 &mdash; EXPERIENCE</span>
+        <span class="text-muted uppercase tracking-widest">Industry Chronology</span>
+      </div>
+
+      <div class="my-auto py-10 space-y-8 reveal-block">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <h2 class="font-display font-bold text-3xl sm:text-5xl tracking-tight">Industry Experience</h2>
+          <span class="font-mono text-xs text-muted uppercase">01 VERIFIED INTERNSHIP &bull; BENGALURU</span>
+        </div>
+
+        <article class="border border-hairline bg-surface/50 p-6 sm:p-10 space-y-6">
+          <div class="flex flex-wrap items-baseline justify-between gap-4 border-b border-hairline pb-5">
+            <div>
+              <span class="font-mono text-xs text-accent uppercase tracking-widest">ROLE 01 // FULL-STACK ENGINEERING</span>
+              <h3 class="font-display font-bold text-2xl sm:text-3xl text-ink mt-1">Full Stack Development Intern</h3>
+              <p class="font-mono text-sm sm:text-base text-accent mt-1">Prinston Smart Engineers</p>
+            </div>
+            <div class="text-left sm:text-right font-mono text-xs sm:text-sm text-muted border border-hairline bg-paper px-4 py-2.5">
+              <p class="text-ink font-semibold">July 2025 &mdash; Sep 2025</p>
+              <p class="mt-0.5">Bengaluru, India</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+            <div class="border border-hairline bg-paper p-5 space-y-2">
+              <span class="font-mono text-xs text-accent font-semibold">01 // PRACTICAL ENGINEERING</span>
+              <p class="text-sm sm:text-base text-muted leading-relaxed">
+                Gained practical experience in full-stack web development through hands-on project work and structured technical training.
+              </p>
+            </div>
+
+            <div class="border border-hairline bg-paper p-5 space-y-2">
+              <span class="font-mono text-xs text-accent font-semibold">02 // END-TO-END WORKFLOWS</span>
+              <p class="text-sm sm:text-base text-muted leading-relaxed">
+                Worked on developing modular web application components and understanding complete frontend and backend development workflows.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between gap-4 font-mono text-xs">
+        <a href="#02-statement" data-page-target="02-statement" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Statement
+        </a>
+        <a href="#04-education" data-page-target="04-education" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">03 / 08</span>
+          <span>Next &rarr; Education</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 04 / EDUCATION & CREDENTIALS                                          -->
+    <!-- ===================================================================== -->
+    <section id="04-education" data-index="04" data-title="Education" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex items-center justify-between border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">04 / 08 &mdash; EDUCATION &amp; HONORS</span>
+        <span class="text-muted uppercase tracking-widest">Academic &amp; Verified Credentials</span>
+      </div>
+
+      <div class="my-auto py-10 space-y-10 reveal-block">
+        <!-- Degree Spotlight -->
+        <article class="border border-hairline bg-surface/50 p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2">
+            <span class="font-mono text-xs text-accent uppercase tracking-widest">UNDERGRADUATE DEGREE // OCT 2023 &mdash; JUNE 2027</span>
+            <h2 class="font-display font-bold text-2xl sm:text-3xl text-ink">B.E. in Computer Science and Engineering</h2>
+            <p class="font-mono text-sm text-muted">JSS Academy of Technical Education &bull; Bengaluru, India</p>
+          </div>
+
+          <div class="border border-hairline-strong bg-paper px-6 py-4 text-left lg:text-right shrink-0">
+            <p class="font-mono text-[11px] text-muted uppercase">Cumulative GPA</p>
+            <p class="font-display font-bold text-3xl text-accent mt-0.5">9.30 / 10</p>
+          </div>
+        </article>
+
+        <!-- Two-Column Ledger: Certifications + Achievements -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Certifications -->
+          <div class="space-y-4">
+            <p class="font-mono text-xs uppercase tracking-widest text-accent">// Certifications</p>
+            <div class="border-t border-hairline divide-y divide-[var(--hairline)]">
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>ORACLE UNIVERSITY</span>
+                  <span>AI/ML</span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate
+                </h3>
+              </div>
+
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>IBM</span>
+                  <span>DATA SCIENCE</span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  Python 101 for Data Science
+                </h3>
+              </div>
+
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>NXTWAVE CCBP 4.0</span>
+                  <span>WEB </span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  Build Your Own Static Website
+                </h3>
+              </div>
+
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>NXTWAVE CCBP 4.0</span>
+                  <span>WEB </span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  Build Your Own Responsive Website
+                </h3>
+              </div>
+
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>NXTWAVE CCBP 4.0</span>
+                  <span>DATABASES </span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  Introduction to Databases
+                </h3>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Achievements & Technical Events -->
+          <div class="space-y-4">
+            <p class="font-mono text-xs uppercase tracking-widest text-accent">// Achievements &amp; Community</p>
+            <div class="border-t border-hairline divide-y divide-[var(--hairline)]">
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-accent mb-1">
+                  <span>3RD PLACE / 70+ TEAMS</span>
+                  <span>INNOVATEX 2025 IDEATHON</span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  AI-Based Smart Supply Chain Management System
+                </h3>
+                <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+                  Secured 3rd place among 70+ teams for presenting an AI-based Smart Supply Chain Management System.
+                </p>
+              </div>
+
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>GOOGLE DEVELOPER GROUPS (GDG)</span>
+                  <span>CLOUD LABS</span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  GDG Participant &amp; Google Cloud Skills Boost
+                </h3>
+                <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+                  Completed Google Cloud Skills Boost labs and participated in developer-focused learning initiatives.
+                </p>
+              </div>
+
+              <div class="py-4">
+                <div class="flex items-center justify-between font-mono text-[11px] text-muted mb-1">
+                  <span>TECHNICAL EVENTS</span>
+                  <span>ECOSYSTEM</span>
+                </div>
+                <h3 class="font-display font-bold text-base sm:text-lg text-ink">
+                  Microsoft Azure AI, Hacktoberfest &amp; Hackathons
+                </h3>
+                <p class="text-xs sm:text-sm text-muted mt-1 leading-relaxed">
+                  Participated in Azure AI Influencers Day at Microsoft, Hacktoberfest, coding contests, hackathons, and ideathons.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between gap-4 font-mono text-xs">
+        <a href="#03-experience" data-page-target="03-experience" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Experience
+        </a>
+        <a href="#05-projects" data-page-target="05-projects" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">04 / 08</span>
+          <span>Next &rarr; Projects</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 05 / PROJECTS (INTERACTIVE ARCHITECTURAL INDEX & CASE STUDY DRAWERS)  -->
+    <!-- ===================================================================== -->
+    <section id="05-projects" data-index="05" data-title="Projects" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">05 / 08 &mdash; SELECTED WORKS</span>
+        <span class="text-muted">CLICK ANY ROW TO INSPECT ARCHITECTURE</span>
+      </div>
+
+      <div class="my-auto py-10 reveal-block">
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <h2 class="font-display font-bold text-3xl sm:text-5xl tracking-tight">Project Index</h2>
+          <p class="font-mono text-xs text-muted">03 VERIFIED SYSTEMS &bull; EXPANDABLE CASE NOTES</p>
+        </div>
+
+        <!-- Architectural Numbered Index Rows -->
+        <div class="border-t border-hairline">
+
+          <!-- PROJECT 01: GreenCloud -->
+          <div class="project-item border-b border-hairline">
+            <button type="button" onclick="toggleCaseStudy('case-01', this)" aria-expanded="true" class="w-full text-left py-6 sm:py-8 px-2 sm:px-4 hover:bg-surface/60 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-4 group">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-lg sm:text-2xl font-semibold text-accent">01</span>
+                <div>
+                  <h3 class="font-display font-bold text-xl sm:text-3xl text-ink group-hover:text-accent transition-colors">
+                    GreenCloud: Sustainable &amp; Carbon-Aware Cloud Computing
+                  </h3>
+                  <p class="font-mono text-xs text-muted mt-1.5">
+                    Python &bull; Flask &bull; Machine Learning &bull; SQLite &bull; JavaScript
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 self-end lg:self-center font-mono text-xs">
+                <span class="px-2.5 py-1 border border-hairline text-muted">CLOUD / ML</span>
+                <span class="case-toggle-icon w-7 h-7 border border-hairline-strong flex items-center justify-center text-sm font-bold">&minus;</span>
+              </div>
+            </button>
+
+            <!-- Expandable Architectural Case Drawer -->
+            <div id="case-01" class="case-body open">
+              <div class="case-inner">
+                <div class="px-4 sm:px-12 pb-7 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-hairline/60 bg-surface/30">
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">01 // Problem &amp; Context</p>
+                    <p class="text-sm text-muted leading-relaxed">
+                      Cloud data centers exhibit wide regional variance in energy efficiency and grid carbon intensity. Standard schedulers ignore environmental telemetry during workload allocation.
+                    </p>
+                  </div>
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">02 // Architecture &amp; Implementation</p>
+                    <p class="text-sm text-muted leading-relaxed">
+                      Built a Flask and SQLite cloud monitoring system ingesting live CPU, RAM, and disk utilization alongside regional carbon intensity metrics, paired with ML-based carbon emission forecasting.
+                    </p>
+                  </div>
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">03 // Measurable Outcome</p>
+                    <p class="text-sm text-ink leading-relaxed">
+                      Delivers real-time carbon-aware region ranking and predictive emission scoring to guide environmentally sustainable workload placement.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT 02: AI Web App Builder -->
+          <div class="project-item border-b border-hairline">
+            <button type="button" onclick="toggleCaseStudy('case-02', this)" aria-expanded="false" class="w-full text-left py-6 sm:py-8 px-2 sm:px-4 hover:bg-surface/60 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-4 group">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-lg sm:text-2xl font-semibold text-accent">02</span>
+                <div>
+                  <h3 class="font-display font-bold text-xl sm:text-3xl text-ink group-hover:text-accent transition-colors">
+                    AI Web App Builder
+                  </h3>
+                  <p class="font-mono text-xs text-muted mt-1.5">
+                    React.js &bull; Node.js &bull; Express.js &bull; MongoDB &bull; Gemini API &bull; LLM
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 self-end lg:self-center font-mono text-xs">
+                <span class="px-2.5 py-1 border border-hairline text-muted">GENAI / FULL-STACK</span>
+                <span class="case-toggle-icon w-7 h-7 border border-hairline-strong flex items-center justify-center text-sm font-bold">+</span>
+              </div>
+            </button>
+
+            <div id="case-02" class="case-body">
+              <div class="case-inner">
+                <div class="px-4 sm:px-12 pb-7 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-hairline/60 bg-surface/30">
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">01 // Problem &amp; Context</p>
+                    <p class="text-sm text-muted leading-relaxed">
+                      Rapidly scaffolding structured, multi-component React applications from natural-language specifications requires reliable prompt orchestration, persistence, and user session isolation.
+                    </p>
+                  </div>
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">02 // Architecture &amp; Implementation</p>
+                    <p class="text-sm text-muted leading-relaxed">
+                      Engineered a full-stack MERN platform integrating the Gemini API and LLMs to synthesize React codebases, backed by Node.js/Express REST APIs, MongoDB storage, and JWT authentication.
+                    </p>
+                  </div>
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">03 // Measurable Outcome</p>
+                    <p class="text-sm text-ink leading-relaxed">
+                      Enables authenticated users to generate, store, inspect, and manage complete AI-generated React projects from a centralized dashboard.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROJECT 03: LSB Image Steganography Framework -->
+          <div class="project-item border-b border-hairline">
+            <button type="button" onclick="toggleCaseStudy('case-03', this)" aria-expanded="false" class="w-full text-left py-6 sm:py-8 px-2 sm:px-4 hover:bg-surface/60 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-4 group">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-lg sm:text-2xl font-semibold text-accent">03</span>
+                <div>
+                  <h3 class="font-display font-bold text-xl sm:text-3xl text-ink group-hover:text-accent transition-colors">
+                    LSB Image Steganography Framework
+                  </h3>
+                  <p class="font-mono text-xs text-muted mt-1.5">
+                    React.js &bull; TypeScript &bull; Firebase &bull; LSB Algorithm
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 self-end lg:self-center font-mono text-xs">
+                <span class="px-2.5 py-1 border border-hairline text-muted">SECURITY / TS</span>
+                <span class="case-toggle-icon w-7 h-7 border border-hairline-strong flex items-center justify-center text-sm font-bold">+</span>
+              </div>
+            </button>
+
+            <div id="case-03" class="case-body">
+              <div class="case-inner">
+                <div class="px-4 sm:px-12 pb-7 pt-2 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-hairline/60 bg-surface/30">
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">01 // Problem &amp; Context</p>
+                    <p class="text-sm text-muted leading-relaxed">
+                      Covert data embedding inside carrier images must preserve perceptual fidelity so hidden payloads remain undetectable to visual inspection.
+                    </p>
+                  </div>
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">02 // Architecture &amp; Implementation</p>
+                    <p class="text-sm text-muted leading-relaxed">
+                      Implemented bitwise Least Significant Bit (LSB) encoding and extraction routines in TypeScript and React.js, paired with Peak Signal-to-Noise Ratio (PSNR) distortion metrics and Firebase deployment.
+                    </p>
+                  </div>
+                  <div class="pt-4">
+                    <p class="font-mono text-[11px] uppercase tracking-wider text-accent mb-2">03 // Measurable Outcome</p>
+                    <p class="text-sm text-ink leading-relaxed">
+                      Provides lossless message recovery alongside quantitative PSNR quality verification for every encoded carrier image.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between gap-4 font-mono text-xs">
+        <a href="#04-education" data-page-target="04-education" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Education
+        </a>
+        <a href="#06-stack" data-page-target="06-stack" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">05 / 08</span>
+          <span>Next &rarr; Stack</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 06 / STACK (ARCHITECTURAL MATRIX)                                     -->
+    <!-- ===================================================================== -->
+    <section id="06-stack" data-index="06" data-title="Stack" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">06 / 08 &mdash; TECHNICAL STACK</span>
+        <!-- Interactive Domain Filter -->
+        <div class="flex flex-wrap gap-1.5">
+          <button type="button" data-stack-filter="all" class="stack-filter-btn px-2.5 py-1 border border-hairline-strong bg-ink text-paper font-mono text-[11px]">ALL</button>
+          <button type="button" data-stack-filter="ai" class="stack-filter-btn px-2.5 py-1 border border-hairline text-muted hover:text-ink font-mono text-[11px]">AI/ML</button>
+          <button type="button" data-stack-filter="web" class="stack-filter-btn px-2.5 py-1 border border-hairline text-muted hover:text-ink font-mono text-[11px]">WEB &amp; DB</button>
+          <button type="button" data-stack-filter="core" class="stack-filter-btn px-2.5 py-1 border border-hairline text-muted hover:text-ink font-mono text-[11px]">CS CORE</button>
+        </div>
+      </div>
+
+      <div class="my-auto py-10 reveal-block">
+        <h2 class="font-display font-bold text-3xl sm:text-5xl tracking-tight mb-8">Capabilities Matrix</h2>
+
+        <div class="border-t border-hairline">
+          <!-- Row 01: Programming -->
+          <div data-stack-group="web core" class="stack-row grid grid-cols-1 md:grid-cols-12 py-5 border-b border-hairline gap-4 items-baseline">
+            <div class="md:col-span-4 flex items-baseline gap-3">
+              <span class="font-mono text-xs text-accent">01</span>
+              <h3 class="font-display font-bold text-lg text-ink">Programming</h3>
+            </div>
+            <div class="md:col-span-8 flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Java</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Python</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">SQL</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">JavaScript</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">HTML/CSS</span>
+            </div>
+          </div>
+
+          <!-- Row 02: AI / ML & GenAI -->
+          <div data-stack-group="ai" class="stack-row grid grid-cols-1 md:grid-cols-12 py-5 border-b border-hairline gap-4 items-baseline">
+            <div class="md:col-span-4 flex items-baseline gap-3">
+              <span class="font-mono text-xs text-accent">02</span>
+              <h3 class="font-display font-bold text-lg text-ink">AI / ML &amp; GenAI</h3>
+            </div>
+            <div class="md:col-span-8 flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Machine Learning</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Generative AI</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">LLMs</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">NLP</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">RAG</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">MLflow</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Prompt Engineering</span>
+            </div>
+          </div>
+
+          <!-- Row 03: Frameworks & Libraries -->
+          <div data-stack-group="ai web" class="stack-row grid grid-cols-1 md:grid-cols-12 py-5 border-b border-hairline gap-4 items-baseline">
+            <div class="md:col-span-4 flex items-baseline gap-3">
+              <span class="font-mono text-xs text-accent">03</span>
+              <h3 class="font-display font-bold text-lg text-ink">Frameworks &amp; Libraries</h3>
+            </div>
+            <div class="md:col-span-8 flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">LangChain</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">React.js</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Node.js</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Express.js</span>
+            </div>
+          </div>
+
+          <!-- Row 04: Databases -->
+          <div data-stack-group="ai web" class="stack-row grid grid-cols-1 md:grid-cols-12 py-5 border-b border-hairline gap-4 items-baseline">
+            <div class="md:col-span-4 flex items-baseline gap-3">
+              <span class="font-mono text-xs text-accent">04</span>
+              <h3 class="font-display font-bold text-lg text-ink">Databases</h3>
+            </div>
+            <div class="md:col-span-8 flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">SQL</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">MongoDB</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Vector Databases</span>
+            </div>
+          </div>
+
+          <!-- Row 05: Core Coursework -->
+          <div data-stack-group="core" class="stack-row grid grid-cols-1 md:grid-cols-12 py-5 border-b border-hairline gap-4 items-baseline">
+            <div class="md:col-span-4 flex items-baseline gap-3">
+              <span class="font-mono text-xs text-accent">05</span>
+              <h3 class="font-display font-bold text-lg text-ink">Core Coursework</h3>
+            </div>
+            <div class="md:col-span-8 flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Data Structures &amp; Algorithms</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">OOP</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">DBMS</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Operating Systems</span>
+              <span class="px-3 py-1.5 border border-hairline bg-surface/50 font-mono text-xs text-ink">Computer Networks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between gap-4 font-mono text-xs">
+        <a href="#05-projects" data-page-target="05-projects" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Projects
+        </a>
+        <a href="#07-playground" data-page-target="07-playground" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">06 / 08</span>
+          <span>Next &rarr; Playground</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 07 / PLAYGROUND (INTERACTIVE LIVE ARCHITECTURE SANDBOXES)             -->
+    <!-- ===================================================================== -->
+    <section id="07-playground" data-index="07" data-title="Playground" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">07 / 08 &mdash; INTERACTIVE PLAYGROUND</span>
+        <span class="text-muted uppercase tracking-widest">Live Engineering Simulators</span>
+      </div>
+
+      <div class="my-auto py-10 space-y-8 reveal-block">
+        <div class="max-w-3xl">
+          <h2 class="font-display font-bold text-3xl sm:text-5xl tracking-tight">System Sandboxes</h2>
+          <p class="text-sm sm:text-base text-muted mt-2 leading-relaxed">
+            Interactive visualizations modeled directly after my core engineering projects—inspect pixel-level LSB steganography bit mutations and carbon-aware cloud workload routing in real time.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+
+          <!-- SANDBOX 1: LSB Bit-Plane & PSNR Simulator -->
+          <div class="border border-hairline bg-surface/40 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center justify-between border-b border-hairline pb-4 mb-5">
+                <div>
+                  <span class="font-mono text-[11px] text-accent uppercase">LAB 01 // PROJECT 03</span>
+                  <h3 class="font-display font-bold text-xl text-ink mt-0.5">LSB Steganography &amp; PSNR Lab</h3>
+                </div>
+                <div class="text-right font-mono">
+                  <span class="text-[10px] text-muted block">EST. PSNR</span>
+                  <span id="lsb-psnr-value" class="text-sm font-bold text-accent">68.24 dB</span>
+                </div>
+              </div>
+
+              <label for="lsb-input" class="block font-mono text-xs text-muted mb-2">
+                SECRET PAYLOAD (MAX 12 CHARS &rarr; 96 BITS):
+              </label>
+              <input
+                id="lsb-input"
+                type="text"
+                maxlength="12"
+                value="NITHYA"
+                placeholder="Type secret text..."
+                class="w-full px-3.5 py-2.5 bg-paper border border-hairline-strong font-mono text-sm text-ink focus:outline-none focus:border-[#0F766E]"
+              />
+
+              <!-- Binary Stream Preview -->
+              <div class="mt-4 p-3 bg-paper border border-hairline">
+                <div class="flex items-center justify-between font-mono text-[10px] text-muted mb-1">
+                  <span>ASCII &rarr; BINARY BITSTREAM</span>
+                  <span id="lsb-bit-count">48 BITS</span>
+                </div>
+                <p id="lsb-binary-stream" class="font-mono text-xs text-ink break-all leading-relaxed">
+                  01001110 01001001 01010100 01001000 01011001 01000001
+                </p>
+              </div>
+
+              <!-- Pixel Byte Mutation Grid -->
+              <div class="mt-4">
+                <p class="font-mono text-[10px] text-muted uppercase mb-2">
+                  Carrier RGB Pixel Bytes (LSB Highlighted):
+                </p>
+                <div id="lsb-pixel-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2 font-mono text-xs">
+                  <!-- Populated via JS -->
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-hairline flex items-center justify-between font-mono text-[11px] text-muted">
+              <span>MAX CHANNEL DELTA: &plusmn;1 / 255</span>
+              <span class="text-accent">IMPERCEPTIBLE (&gt;40 dB)</span>
+            </div>
+          </div>
+
+          <!-- SANDBOX 2: GreenCloud Carbon-Aware Region Router -->
+          <div class="border border-hairline bg-surface/40 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex items-center justify-between border-b border-hairline pb-4 mb-5">
+                <div>
+                  <span class="font-mono text-[11px] text-accent uppercase">LAB 02 // PROJECT 01</span>
+                  <h3 class="font-display font-bold text-xl text-ink mt-0.5">GreenCloud Workload Router</h3>
+                </div>
+                <div class="text-right font-mono">
+                  <span class="text-[10px] text-muted block">OPTIMAL TARGET</span>
+                  <span id="gc-best-region" class="text-sm font-bold text-accent">eu-north-1</span>
+                </div>
+              </div>
+
+              <!-- Resource Sliders -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+                <div class="p-3 bg-paper border border-hairline">
+                  <div class="flex justify-between font-mono text-xs mb-2">
+                    <span class="text-muted">CPU LOAD</span>
+                    <span id="gc-cpu-val" class="text-ink font-semibold">65%</span>
+                  </div>
+                  <input id="gc-cpu-slider" type="range" min="10" max="100" value="65" class="w-full" />
+                </div>
+
+                <div class="p-3 bg-paper border border-hairline">
+                  <div class="flex justify-between font-mono text-xs mb-2">
+                    <span class="text-muted">RAM ALLOC</span>
+                    <span id="gc-ram-val" class="text-ink font-semibold">16 GB</span>
+                  </div>
+                  <input id="gc-ram-slider" type="range" min="2" max="64" value="16" class="w-full" />
+                </div>
+              </div>
+
+              <!-- Routing Policy Toggle -->
+              <div class="flex items-center gap-2 mb-4 font-mono text-xs">
+                <span class="text-muted">POLICY:</span>
+                <button type="button" id="policy-carbon" class="px-3 py-1 border border-hairline-strong bg-ink text-paper">
+                  LOWEST CARBON
+                </button>
+                <button type="button" id="policy-balanced" class="px-3 py-1 border border-hairline text-muted hover:text-ink">
+                  BALANCED LATENCY
+                </button>
+              </div>
+
+              <!-- Ranked Regions Table -->
+              <div id="gc-regions-list" class="space-y-2 font-mono text-xs">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-hairline flex items-center justify-between font-mono text-[11px] text-muted">
+              <span>TELEMETRY: CPU + RAM + GRID gCO&#8322;/kWh</span>
+              <span id="gc-savings-badge" class="text-accent">-74% EMISSIONS</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-hairline flex items-center justify-between gap-4 font-mono text-xs">
+        <a href="#06-stack" data-page-target="06-stack" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Stack
+        </a>
+        <a href="#08-contact" data-page-target="08-contact" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">07 / 08</span>
+          <span>Next &rarr; Contact</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 08 / CONTACT                                                          -->
+    <!-- ===================================================================== -->
+    <section id="08-contact" data-index="08" data-title="Contact" class="page-section min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex-col justify-between px-5 sm:px-10 lg:px-16 pt-8 sm:pt-10 pb-8">
+      <div class="flex items-center justify-between border-b border-hairline pb-5 font-mono text-xs">
+        <span class="text-accent font-semibold">08 / 08 &mdash; CONTACT &amp; DISPATCH</span>
+        <span class="text-muted uppercase tracking-widest">Bengaluru, India</span>
+      </div>
+
+      <div class="my-auto py-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start reveal-block">
+        <!-- Left Column: Oversized Editorial CTA & Direct Channels -->
+        <div class="lg:col-span-6 space-y-8">
+          <h2 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.98]">
+            Let&rsquo;s build <span class="text-accent">something.</span>
+          </h2>
+          <p class="text-base sm:text-lg text-muted max-w-md leading-relaxed">
+            Available for software engineering internships, AI/ML research collaborations, and full-stack development opportunities.
+          </p>
+
+          <!-- Architectural Contact Ledger -->
+          <div class="border-t border-hairline divide-y divide-[var(--hairline)] font-mono text-xs sm:text-sm">
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-[10px] text-muted block">EMAIL</span>
+                <a href="mailto:nithyacshree@gmail.com" class="text-ink hover:text-accent transition-colors">nithyacshree@gmail.com</a>
+              </div>
+              <button type="button" onclick="copyText('nithyacshree@gmail.com', 'Email')" class="px-2.5 py-1 border border-hairline hover:border-hairline-strong text-[11px]">
+                COPY
+              </button>
+            </div>
+
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-[10px] text-muted block">PHONE</span>
+                <a href="tel:+918660016881" class="text-ink hover:text-accent transition-colors">+91 8660016881</a>
+              </div>
+              <button type="button" onclick="copyText('+91 8660016881', 'Phone')" class="px-2.5 py-1 border border-hairline hover:border-hairline-strong text-[11px]">
+                COPY
+              </button>
+            </div>
+
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-[10px] text-muted block">LINKEDIN</span>
+                <a href="https://www.linkedin.com/in/nithyashree-c" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors">linkedin.com/in/nithyashree-c</a>
+              </div>
+              <span class="text-muted">&nearr;</span>
+            </div>
+
+            <div class="py-3.5 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-[10px] text-muted block">GITHUB</span>
+                <a href="https://github.com/NithyashreeC24" target="_blank" rel="noopener noreferrer" class="text-ink hover:text-accent transition-colors">github.com/NithyashreeC24</a>
+              </div>
+              <span class="text-muted">&nearr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Minimalist Dispatch Form -->
+        <div class="lg:col-span-6 border border-hairline bg-surface/40 p-6 sm:p-8">
+          <div class="flex items-center justify-between gap-2 border-b border-hairline pb-4 mb-6 font-mono text-xs">
+            <span class="text-ink font-semibold">SEND A MESSAGE</span>
+            <span class="text-accent">nithyacshree@gmail.com</span>
+          </div>
+
+          <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="c-name" class="block font-mono text-[11px] text-muted uppercase mb-1.5">Name</label>
+                <input id="c-name" name="name" type="text" required placeholder="Your full name" class="w-full px-3.5 py-2.5 bg-paper border border-hairline focus:border-[#0F766E] focus:outline-none text-sm text-ink" />
+              </div>
+              <div>
+                <label for="c-email" class="block font-mono text-[11px] text-muted uppercase mb-1.5">Email</label>
+                <input id="c-email" name="email" type="email" required placeholder="you@domain.com" class="w-full px-3.5 py-2.5 bg-paper border border-hairline focus:border-[#0F766E] focus:outline-none text-sm text-ink" />
+              </div>
+            </div>
+
+            <div>
+              <label for="c-subject" class="block font-mono text-[11px] text-muted uppercase mb-1.5">Subject</label>
+              <input id="c-subject" name="subject" type="text" required placeholder="Subject" class="w-full px-3.5 py-2.5 bg-paper border border-hairline focus:border-[#0F766E] focus:outline-none text-sm text-ink" />
+            </div>
+
+            <div>
+              <label for="c-message" class="block font-mono text-[11px] text-muted uppercase mb-1.5">Message</label>
+              <textarea id="c-message" name="message" rows="4" required placeholder="Your message..." class="w-full px-3.5 py-2.5 bg-paper border border-hairline focus:border-[#0F766E] focus:outline-none text-sm text-ink resize-none"></textarea>
+            </div>
+
+            <button id="contact-submit-btn" type="submit" class="w-full py-3.5 px-6 bg-ink text-paper hover:bg-[#0F766E] hover:text-white font-mono text-xs uppercase tracking-widest transition-colors disabled:opacity-60">
+              Send Email &rarr;
+            </button>
+          </form>
+
+          <div id="form-status" role="status" aria-live="polite" class="hidden mt-4 p-3.5 border border-hairline bg-paper font-mono text-xs leading-relaxed"></div>
+        </div>
+      </div>
+
+      <!-- Footer Loop Back to 01 Index -->
+      <footer class="pt-6 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-muted">
+        <a href="#07-playground" data-page-target="07-playground" class="nav-trigger px-3.5 py-2 border border-hairline hover:border-hairline-strong text-muted hover:text-ink transition-colors">
+          &larr; Prev: Playground
+        </a>
+        <p class="text-center">&copy; <span id="year-now"></span> NITHYASHREE C</p>
+        <a href="#01-index" data-page-target="01-index" class="nav-trigger inline-flex items-center gap-3 px-4 py-2.5 border border-hairline-strong hover:border-[#0F766E] hover:bg-surface transition-all text-ink">
+          <span class="text-accent font-semibold">08 / 08</span>
+          <span>Loop &rarr; 01 Index</span>
+        </a>
+      </footer>
+    </section>
+
+  </main>
+
+  <script>
+    // 1. Set Current Year
+    document.getElementById('year-now').textContent = new Date().getFullYear();
+
+    // Toast Notification Helper (replaces native alerts)
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = 'px-4 py-2.5 bg-ink text-paper border border-hairline-strong font-mono text-xs shadow-lg transition-opacity duration-300';
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    // Clipboard Copy Helper
+    function copyText(value, label) {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).catch(() => {});
+        }
+        const tempInput = document.createElement('input');
+        tempInput.value = value;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast(`${label} copied: ${value}`);
+      } catch (err) {
+        showToast(`Copy ${label}: ${value}`);
+      }
+    }
+
+    // 2. Kinetic Letter-by-Letter Split & Stagger Reveal on Hero Load (Single Line: Nithyashree C)
+    function initKineticHero() {
+      const fullNameEl = document.getElementById('kinetic-full-name');
+      if (!fullNameEl) return;
+
+      const text = 'Nithyashree C';
+      fullNameEl.innerHTML = '';
+      let delay = 50;
+
+      [...text].forEach((char, idx) => {
+        const span = document.createElement('span');
+        if (char === ' ') {
+          span.innerHTML = '&nbsp;';
+        } else {
+          span.textContent = char;
+        }
+        span.className = 'kinetic-char';
+        // Highlight the initial 'C' in accent teal
+        if (idx === text.length - 1) {
+          span.classList.add('text-accent');
+        }
+        fullNameEl.appendChild(span);
+
+        setTimeout(() => {
+          span.classList.add('revealed');
+        }, delay);
+        delay += 35;
+      });
+    }
+
+    // 3. Light / Dark Architectural Theme Toggle
+    const htmlEl = document.documentElement;
+    const themeBtns = [
+      document.getElementById('theme-toggle-desktop'),
+      document.getElementById('theme-toggle-mobile')
+    ];
+    const themeLabelDesktop = document.getElementById('theme-label-desktop');
+
+    function updateThemeUI() {
+      const isDark = htmlEl.classList.contains('dark');
+      if (themeLabelDesktop) {
+        themeLabelDesktop.textContent = isDark ? 'OBSIDIAN / DARK' : 'PAPER / LIGHT';
+      }
+    }
+
+    themeBtns.forEach((btn) => {
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        htmlEl.classList.toggle('dark');
+        updateThemeUI();
+      });
+    });
+
+    // 4. Mobile Index Drawer Toggle
+    const mobileDrawerBtn = document.getElementById('mobile-drawer-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    if (mobileDrawerBtn && mobileDrawer) {
+      mobileDrawerBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('hidden');
+      });
+    }
+
+    // 5. Single-Section Router (1 Section Visible at a Time + Hash & Arrow Key Navigation)
+    const pageSections = [...document.querySelectorAll('main section.page-section')];
+    const railLinks = [...document.querySelectorAll('.rail-link')];
+    const progressBar = document.getElementById('scroll-progress-bar');
+    const scrollPercent = document.getElementById('scroll-percent');
+    const mobileActiveNum = document.getElementById('mobile-active-num');
+    const railNextBtn = document.getElementById('rail-next-btn');
+
+    let currentPageIndex = 0;
+
+    function navigateToPage(targetId, updateHash = true) {
+      const foundIndex = pageSections.findIndex((sec) => sec.id === targetId);
+      const nextIndex = foundIndex !== -1 ? foundIndex : 0;
+      currentPageIndex = nextIndex;
+
+      // Toggle visible section
+      pageSections.forEach((sec, idx) => {
+        if (idx === nextIndex) {
+          sec.classList.add('active-page');
+          const reveal = sec.querySelector('.reveal-block');
+          if (reveal) {
+            reveal.classList.remove('is-visible');
+            requestAnimationFrame(() => reveal.classList.add('is-visible'));
+          }
+        } else {
+          sec.classList.remove('active-page');
+        }
+      });
+
+      const activeSec = pageSections[nextIndex];
+      const activeId = activeSec.id;
+      const activeNum = activeSec.getAttribute('data-index');
+
+      // Re-trigger kinetic letter reveal whenever returning to 01-index
+      if (activeId === '01-index') {
+        initKineticHero();
+      }
+
+      // Update Desktop Rail Active State
+      railLinks.forEach((link) => {
+        const isMatch = link.getAttribute('data-nav') === activeId;
+        const dot = link.querySelector('.rail-indicator');
+        if (isMatch) {
+          link.classList.add('text-ink', 'font-semibold');
+          link.classList.remove('text-muted');
+          if (dot) dot.classList.remove('opacity-0');
+        } else {
+          link.classList.remove('text-ink', 'font-semibold');
+          link.classList.add('text-muted');
+          if (dot) dot.classList.add('opacity-0');
+        }
+      });
+
+      // Update Progress Bar & Mobile Header Indicator
+      const pct = ((nextIndex + 1) / pageSections.length) * 100;
+      if (progressBar) progressBar.style.width = `${pct}%`;
+      if (scrollPercent) scrollPercent.textContent = `${activeNum}/0${pageSections.length}`;
+      if (mobileActiveNum) mobileActiveNum.textContent = `${activeNum} / 0${pageSections.length}`;
+
+      // Close mobile drawer if open
+      if (mobileDrawer) mobileDrawer.classList.add('hidden');
+
+      // Update URL hash cleanly & scroll to top
+      if (updateHash) {
+        history.replaceState(null, '', `#${activeId}`);
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    // Bind all navigation links/buttons with data-page-target
+    document.querySelectorAll('[data-page-target]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = el.getAttribute('data-page-target');
+        navigateToPage(target, true);
+      });
+    });
+
+    // Rail Next Button
+    if (railNextBtn) {
+      railNextBtn.addEventListener('click', () => {
+        const nextIdx = (currentPageIndex + 1) % pageSections.length;
+        navigateToPage(pageSections[nextIdx].id, true);
+      });
+    }
+
+    // Keyboard Left / Right Arrow Support (when not typing in form/inputs)
+    window.addEventListener('keydown', (e) => {
+      const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea') return;
+
+      if (e.key === 'ArrowRight') {
+        const nextIdx = (currentPageIndex + 1) % pageSections.length;
+        navigateToPage(pageSections[nextIdx].id, true);
+      } else if (e.key === 'ArrowLeft') {
+        const prevIdx = (currentPageIndex - 1 + pageSections.length) % pageSections.length;
+        navigateToPage(pageSections[prevIdx].id, true);
+      }
+    });
+
+    // Handle Browser Hash Change & Initial Load
+    window.addEventListener('hashchange', () => {
+      const hashId = window.location.hash.replace('#', '');
+      if (hashId) navigateToPage(hashId, false);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const initialHash = window.location.hash.replace('#', '');
+      navigateToPage(initialHash || '01-index', false);
+    });
+
+    // 7. Expandable Architectural Case Study Drawers
+    function toggleCaseStudy(id, btn) {
+      const drawer = document.getElementById(id);
+      if (!drawer) return;
+      const isOpen = drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+      const icon = btn.querySelector('.case-toggle-icon');
+      if (icon) icon.textContent = isOpen ? '−' : '+';
+    }
+
+    // 8. Stack Matrix Domain Filter
+    const stackFilterBtns = document.querySelectorAll('.stack-filter-btn');
+    const stackRows = document.querySelectorAll('.stack-row');
+
+    stackFilterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-stack-filter');
+        stackFilterBtns.forEach((b) => {
+          b.classList.remove('bg-ink', 'text-paper', 'border-hairline-strong');
+          b.classList.add('text-muted', 'border-hairline');
+        });
+        btn.classList.add('bg-ink', 'text-paper', 'border-hairline-strong');
+        btn.classList.remove('text-muted', 'border-hairline');
+
+        stackRows.forEach((row) => {
+          const groups = row.getAttribute('data-stack-group').split(' ');
+          if (filter === 'all' || groups.includes(filter)) {
+            row.classList.remove('hidden');
+          } else {
+            row.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // 9. Playground Sandbox 01: LSB Steganography & PSNR Visualizer
+    const lsbInput = document.getElementById('lsb-input');
+    const lsbBinaryStream = document.getElementById('lsb-binary-stream');
+    const lsbBitCount = document.getElementById('lsb-bit-count');
+    const lsbPixelGrid = document.getElementById('lsb-pixel-grid');
+    const lsbPsnrValue = document.getElementById('lsb-psnr-value');
+
+    const baseCarrierBytes = [214, 182, 94, 148, 202, 118, 176, 88];
+
+    function updateLsbLab() {
+      if (!lsbInput) return;
+      const text = lsbInput.value || ' ';
+      const bytes = [...text].map((ch) => ch.charCodeAt(0).toString(2).padStart(8, '0'));
+      const fullBits = bytes.join('');
+
+      lsbBinaryStream.textContent = bytes.join(' ');
+      lsbBitCount.textContent = `${fullBits.length} BITS`;
+
+      // Render 8 sample carrier pixel bytes showing LSB replacement
+      lsbPixelGrid.innerHTML = '';
+
+      baseCarrierBytes.forEach((origVal, idx) => {
+        const targetBit = fullBits[idx] !== undefined ? fullBits[idx] : String(origVal & 1);
+        const origBin = origVal.toString(2).padStart(8, '0');
+        const newBin = origBin.slice(0, 7) + targetBit;
+        const newVal = parseInt(newBin, 2);
+
+        const card = document.createElement('div');
+        card.className = 'p-2 bg-paper border border-hairline';
+        card.innerHTML = `
+          <div class="flex justify-between text-[10px] text-muted mb-1">
+            <span>PX[${idx}]</span>
+            <span>${origVal}&rarr;${newVal}</span>
+          </div>
+          <div class="tracking-tight text-[11px]">
+            <span>${newBin.slice(0, 7)}</span><span class="px-0.5 bg-[#0F766E] text-white font-bold">${targetBit}</span>
+          </div>
+        `;
+        lsbPixelGrid.appendChild(card);
+      });
+
+      // Compute realistic PSNR for a 256x256 RGB image embedding fullBits.length bits
+      const totalChannels = 256 * 256 * 3;
+      const modifiedChannels = Math.max(1, Math.round(fullBits.length * 0.5));
+      const mse = modifiedChannels / totalChannels;
+      const psnr = (10 * Math.log10((255 * 255) / mse)).toFixed(2);
+      lsbPsnrValue.textContent = `${psnr} dB`;
+    }
+
+    if (lsbInput) {
+      lsbInput.addEventListener('input', updateLsbLab);
+      updateLsbLab();
+    }
+
+    // 10. Playground Sandbox 02: GreenCloud Carbon-Aware Workload Router
+    const cpuSlider = document.getElementById('gc-cpu-slider');
+    const ramSlider = document.getElementById('gc-ram-slider');
+    const cpuValEl = document.getElementById('gc-cpu-val');
+    const ramValEl = document.getElementById('gc-ram-val');
+    const policyCarbonBtn = document.getElementById('policy-carbon');
+    const policyBalancedBtn = document.getElementById('policy-balanced');
+    const regionsListEl = document.getElementById('gc-regions-list');
+    const bestRegionEl = document.getElementById('gc-best-region');
+    const savingsBadgeEl = document.getElementById('gc-savings-badge');
+
+    let routingPolicy = 'carbon';
+
+    const cloudRegions = [
+      { code: 'eu-north-1', label: 'Stockholm (Hydro/Wind)', carbon: 24, latency: 118 },
+      { code: 'ca-central-1', label: 'Montreal (Hydro)', carbon: 42, latency: 145 },
+      { code: 'ap-south-1', label: 'Mumbai (Regional Grid)', carbon: 680, latency: 18 },
+      { code: 'us-east-1', label: 'N. Virginia (Mixed Grid)', carbon: 370, latency: 162 }
+    ];
+
+    function updateGreenCloudRouter() {
+      if (!cpuSlider || !ramSlider || !regionsListEl) return;
+      const cpu = Number(cpuSlider.value);
+      const ram = Number(ramSlider.value);
+      cpuValEl.textContent = `${cpu}%`;
+      ramValEl.textContent = `${ram} GB`;
+
+      // Power estimate in Watts scaled by CPU & RAM allocation
+      const powerKw = ((cpu / 100) * 0.25 + (ram / 64) * 0.08);
+
+      const ranked = cloudRegions.map((reg) => {
+        const emissionsG = Math.round(powerKw * reg.carbon * 10);
+        const normCarbon = reg.carbon / 680;
+        const normLatency = reg.latency / 170;
+        const score = routingPolicy === 'carbon'
+          ? normCarbon * 0.85 + normLatency * 0.15
+          : normCarbon * 0.4 + normLatency * 0.6;
+        return { ...reg, emissionsG, score };
+      }).sort((a, b) => a.score - b.score);
+
+      const best = ranked[0];
+      const localGrid = ranked.find((r) => r.code === 'ap-south-1') || ranked[ranked.length - 1];
+      const savingsPct = localGrid && localGrid.emissionsG > 0
+        ? Math.max(0, Math.round(((localGrid.emissionsG - best.emissionsG) / localGrid.emissionsG) * 100))
+        : 0;
+
+      if (bestRegionEl) bestRegionEl.textContent = best.code;
+      if (savingsBadgeEl) savingsBadgeEl.textContent = `-${savingsPct}% EMISSIONS`;
+
+      regionsListEl.innerHTML = '';
+      ranked.forEach((reg, i) => {
+        const isTop = i === 0;
+        const row = document.createElement('div');
+        row.className = `flex items-center justify-between p-2.5 border ${isTop ? 'border-[#0F766E] bg-paper' : 'border-hairline bg-paper/60'}`;
+        row.innerHTML = `
+          <div class="flex items-center gap-2.5">
+            <span class="font-bold ${isTop ? 'text-accent' : 'text-muted'}">0${i + 1}</span>
+            <div>
+              <p class="text-ink font-semibold">${reg.code} ${isTop ? '<span class="text-[10px] text-accent ml-1">[SELECTED]</span>' : ''}</p>
+              <p class="text-[10px] text-muted">${reg.label} &bull; ${reg.latency}ms</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-ink font-semibold">${reg.emissionsG} gCO&#8322;/hr</p>
+            <p class="text-[10px] text-muted">${reg.carbon} g/kWh</p>
+          </div>
+        `;
+        regionsListEl.appendChild(row);
+      });
+    }
+
+    if (cpuSlider && ramSlider) {
+      cpuSlider.addEventListener('input', updateGreenCloudRouter);
+      ramSlider.addEventListener('input', updateGreenCloudRouter);
+    }
+
+    if (policyCarbonBtn && policyBalancedBtn) {
+      policyCarbonBtn.addEventListener('click', () => {
+        routingPolicy = 'carbon';
+        policyCarbonBtn.className = 'px-3 py-1 border border-hairline-strong bg-ink text-paper';
+        policyBalancedBtn.className = 'px-3 py-1 border border-hairline text-muted hover:text-ink';
+        updateGreenCloudRouter();
+      });
+
+      policyBalancedBtn.addEventListener('click', () => {
+        routingPolicy = 'balanced';
+        policyBalancedBtn.className = 'px-3 py-1 border border-hairline-strong bg-ink text-paper';
+        policyCarbonBtn.className = 'px-3 py-1 border border-hairline text-muted hover:text-ink';
+        updateGreenCloudRouter();
+      });
+    }
+
+    updateGreenCloudRouter();
+
+    // 12. Contact Form Handler (Posts Name, Email, Subject, and Message to FormSubmit)
+    const FORM_ENDPOINT = 'https://formsubmit.co/ajax/nithyacshree@gmail.com';
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const submitBtn = document.getElementById('contact-submit-btn');
+
+    function setFormStatus(message, isError = false) {
+      if (!formStatus) return;
+      formStatus.classList.remove('hidden', 'border-[#0F766E]', 'border-red-500', 'text-accent', 'text-red-500');
+      if (isError) {
+        formStatus.classList.add('border-red-500', 'text-red-500');
+      } else {
+        formStatus.classList.add('border-[#0F766E]', 'text-accent');
+      }
+      formStatus.textContent = message;
+    }
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('c-name').value.trim();
+        const email = document.getElementById('c-email').value.trim();
+        const subject = document.getElementById('c-subject').value.trim();
+        const message = document.getElementById('c-message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+          setFormStatus('Please fill in your name, email, subject, and message.', true);
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'SENDING...';
+        }
+
+        try {
+          const response = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              subject,
+              _subject: `${subject} — from ${name}`,
+              message
+            })
+          });
+
+          const data = await response.json().catch(() => ({}));
+
+          if (!response.ok || data.success === 'false' || data.success === false) {
+            throw new Error(data.message || 'Unable to send email right now.');
+          }
+
+          setFormStatus(`Email sent to nithyacshree@gmail.com with your details (${name} — ${subject}).`);
+          showToast('Email sent');
+          contactForm.reset();
+        } catch (err) {
+          setFormStatus(`Could not send email: ${err.message}`, true);
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Send Email &rarr;';
+          }
+        }
+      });
+    }
+
+    // 13. Subtle Desktop Cursor Follower
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = `${e.clientX}px`;
+        cursorDot.style.top = `${e.clientY}px`;
+        cursorRing.style.left = `${e.clientX}px`;
+        cursorRing.style.top = `${e.clientY}px`;
+      }, { passive: true });
+
+      document.querySelectorAll('a, button, input, textarea').forEach((el) => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
+      });
+    }
+  </script>
+</body>
+</html>
